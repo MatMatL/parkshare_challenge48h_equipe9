@@ -16,3 +16,8 @@ Ce dossier contient toute la configuration nécessaire pour déployer la stack t
 1. **Préparer le .env :**
    ```bash
    cp .env.example .env
+
+
+2. **Lancer le build :**
+    ```bash
+    docker-compose up -d --build
