@@ -1,0 +1,33 @@
+services:
+  app:
+    build: 
+      context: ../app
+      dockerfile: Dockerfile
+    container_name: parkshare-app
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - parkshare-net
+    volumes:
+      - app-data:/app/data
+
+  proxy:
+    image: nginx:alpine
+    container_name: parkshare-proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - parkshare-net
+
+networks:
+  parkshare-net:
+    driver: bridge
+
+volumes:
+  app-data:
