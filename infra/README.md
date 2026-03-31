@@ -30,10 +30,14 @@ Ce dossier contient l'ensemble de la configuration nécessaire au déploiement d
    ```bash
    cp .env.example .env
 
-2. **Générer les certificats**
+2. **Créer le dossier certs**
+   ```bash
+   mkdir certs
+
+3. **Générer les certificats**
    ```bash
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout certs/nginx.key -out certs/nginx.crt
 
-3. **Lancer le build :**
+4. **Lancer le build :**
     ```bash
     docker-compose up -d --build
