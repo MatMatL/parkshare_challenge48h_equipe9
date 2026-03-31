@@ -1,15 +1,28 @@
 # Infrastructure Parkshare
 
-Ce dossier contient toute la configuration nécessaire pour déployer la stack technique du projet Parkshare de manière conteneurisée et sécurisée.
+Ce dossier contient l'ensemble de la configuration nécessaire au déploiement de la stack technique du projet Parkshare. L'architecture est conçue pour être contenerisée, isolée et sécurisée via un certificat SSL.
+
+## Point clés de l'infrastructure
+* Sécurité SSL/TLS
+* Reverse Proxy
+* Orchestration Docker
+* Routage réseau
 
 ## Pré-requis
 * **Docker** et **Docker Compose** installés sur la machine hôte.
-* Accès réseau configuré (NAT/Redirection de port 80).
+* Accès réseau configuré (Port 80 (HTTP) et 443 (HTTPS)).
 
 ## Structure du dossier
-* `docker-compose.yml` : Orchestration des services (Application + Base de données SQLite).
-* `.env.example` : Modèle des variables d'environnement nécessaires.
-* `data/` : Volume persistant pour la base de données SQLite.
+```bash
+/home/parkshare/
+├── app/       
+└── infra/            
+   ├── docker-compose.yml  
+   ├── nginx.conf          
+   ├── .env.example            
+   └── certs/              
+```
+
 
 ## Déploiement Rapide
 
@@ -17,7 +30,10 @@ Ce dossier contient toute la configuration nécessaire pour déployer la stack t
    ```bash
    cp .env.example .env
 
+2. **Générer les certificats**
+   ```bash
+   openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout certs/nginx.key -out certs/nginx.crt
 
-2. **Lancer le build :**
+3. **Lancer le build :**
     ```bash
     docker-compose up -d --build
