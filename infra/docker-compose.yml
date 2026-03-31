@@ -10,7 +10,7 @@ services:
     networks:
       - parkshare-net
     volumes:
-      - app-data:/app/data
+      - ../data:/data
 
   proxy:
     image: nginx:alpine
